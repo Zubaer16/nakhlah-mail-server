@@ -72,7 +72,7 @@ const sendNonSubscriberEmails = async (nonSubscriberEmails) => {
     //   </tr>
     // </table>
     // `, // Use the provided HTML content here.
-    htmlContent: generateEmailHtml(),
+    // htmlContent: generateEmailHtml(),
   }
 
   try {

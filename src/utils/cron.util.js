@@ -1,6 +1,7 @@
 import axios from 'axios'
 import config from '../config/config.js'
 import emailService from '../services/email.service.js'
+import { $generateHtmlFromNodes } from '@lexical/html'
 
 const fetchNonSubscribers = async () => {
   try {
@@ -16,6 +17,8 @@ const fetchNonSubscribers = async () => {
     throw error
   }
 }
+
+// const fetchNon
 
 const processNonSubscriberEmails = async () => {
   try {
