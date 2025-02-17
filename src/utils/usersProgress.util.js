@@ -1,11 +1,10 @@
 import axios from 'axios'
 import config from '../config/config.js'
-import emailService from '../services/nonSubscribers.service.js'
 
-const fetchNonSubscribers = async (pageSize, pageIndex) => {
+const fetchUsersProgressAndEmails = async (pageSize, pageIndex) => {
   try {
     console.log(`Fetching data for page ${pageIndex} with size ${pageSize}`)
-    const { data } = await axios.get(config.nonSubscribersListApi.url, {
+    const { data } = await axios.get(config.usersProgressListApi.url, {
       params: {
         'pagination[pageSize]': pageSize, // Using pagination[pageSize]
         'pagination[page]': pageIndex, // API pagination parameter for page size
@@ -25,7 +24,7 @@ const fetchNonSubscribers = async (pageSize, pageIndex) => {
 
 const getPageCount = async (pageSize) => {
   try {
-    const { data } = await axios.get(config.nonSubscribersListApi.url, {
+    const { data } = await axios.get(config.usersProgressListApi.url, {
       params: {
         'pagination[pageSize]': pageSize, // Using pagination[pageSize]
         'pagination[page]': 1, // Use the same page size
@@ -46,21 +45,25 @@ const getPageCount = async (pageSize) => {
 }
 // const fetchNon
 
-const processNonSubscriberEmails = async (pageSize) => {
+const processUsersProgressAndEmails = async (pageSize) => {
   try {
     // Get the total number of pages dynamically from the API
-    // const pageCount = await getPageCount(pageSize)
-    const pageCount = 1
+    const pageCount = await getPageCount(pageSize)
+    // const pageCount = 1
 
     // Loop through each page and send emails
     for (let pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
       console.log(`Processing page ${pageIndex} of ${pageCount}...`)
-      // const emails = await fetchNonSubscribers(pageSize, pageIndex)
-      const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com']
+      const emailsAndProgress = await fetchUsersProgressAndEmails(
+        pageSize,
+        pageIndex
+      )
 
-      if (emails.length > 0) {
-        await emailService.sendNonSubscriberEmails(emails)
-        console.log(`emails are ${emails}`)
+      //   const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com']
+
+      if (emailsAndProgress.email.length > 0) {
+        // await emailService.sendStreakMissedUsersEmails(emails)
+        console.log(`emails are ${emailsAndProgress}`)
         console.log(`Successfully sent emails for page ${pageIndex}`)
       } else {
         console.log(`No emails found for page ${pageIndex}`)
@@ -71,4 +74,4 @@ const processNonSubscriberEmails = async (pageSize) => {
   }
 }
 
-export default { processNonSubscriberEmails }
+export default { processUsersProgressAndEmails }

@@ -1,11 +1,11 @@
 import axios from 'axios'
 import config from '../config/config.js'
-import emailService from '../services/nonSubscribers.service.js'
+import emailService from '../services/streakMiss.service.js'
 
-const fetchNonSubscribers = async (pageSize, pageIndex) => {
+const fetchStreakMissedUsersEmails = async (pageSize, pageIndex) => {
   try {
     console.log(`Fetching data for page ${pageIndex} with size ${pageSize}`)
-    const { data } = await axios.get(config.nonSubscribersListApi.url, {
+    const { data } = await axios.get(config.streakMissedUsersListApi.url, {
       params: {
         'pagination[pageSize]': pageSize, // Using pagination[pageSize]
         'pagination[page]': pageIndex, // API pagination parameter for page size
@@ -25,7 +25,7 @@ const fetchNonSubscribers = async (pageSize, pageIndex) => {
 
 const getPageCount = async (pageSize) => {
   try {
-    const { data } = await axios.get(config.nonSubscribersListApi.url, {
+    const { data } = await axios.get(config.streakMissedUsersListApi.url, {
       params: {
         'pagination[pageSize]': pageSize, // Using pagination[pageSize]
         'pagination[page]': 1, // Use the same page size
@@ -46,7 +46,7 @@ const getPageCount = async (pageSize) => {
 }
 // const fetchNon
 
-const processNonSubscriberEmails = async (pageSize) => {
+const processStreakMissedUsersEmails = async (pageSize) => {
   try {
     // Get the total number of pages dynamically from the API
     // const pageCount = await getPageCount(pageSize)
@@ -55,11 +55,11 @@ const processNonSubscriberEmails = async (pageSize) => {
     // Loop through each page and send emails
     for (let pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
       console.log(`Processing page ${pageIndex} of ${pageCount}...`)
-      // const emails = await fetchNonSubscribers(pageSize, pageIndex)
+      // const emails = await fetchStreakMissedUsersEmails(pageSize, pageIndex)
       const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com']
 
       if (emails.length > 0) {
-        await emailService.sendNonSubscriberEmails(emails)
+        await emailService.sendStreakMissedUsersEmails(emails)
         console.log(`emails are ${emails}`)
         console.log(`Successfully sent emails for page ${pageIndex}`)
       } else {
@@ -71,4 +71,4 @@ const processNonSubscriberEmails = async (pageSize) => {
   }
 }
 
-export default { processNonSubscriberEmails }
+export default { processStreakMissedUsersEmails }
