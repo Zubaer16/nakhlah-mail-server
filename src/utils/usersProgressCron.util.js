@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../config/config.js'
+import emailService from '../services/usersProgress.service.js'
 
 const fetchUsersProgressAndEmails = async (pageSize, pageIndex) => {
   try {
@@ -54,16 +55,46 @@ const processUsersProgressAndEmails = async (pageSize) => {
     // Loop through each page and send emails
     for (let pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
       console.log(`Processing page ${pageIndex} of ${pageCount}...`)
-      const emailsAndProgress = await fetchUsersProgressAndEmails(
-        pageSize,
-        pageIndex
-      )
+      // const emails = await fetchUsersProgressAndEmails(pageSize, pageIndex)
+      const emails = [
+        {
+          email: 'zubaer.ahmed7690@gmail.com',
+          progress: [
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 01',
+              lesson: 'Lesson 02',
+            },
+          ],
+        },
+        {
+          email: 'zubaer.16@gmail.com',
+          progress: [
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 01',
+              lesson: 'Lesson 02',
+            },
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 02',
+              lesson: 'Lesson 01',
+            },
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 02',
+              lesson: 'Lesson 02',
+            },
+          ],
+        },
+        {
+          email: 'zubaer.16@gmail.com',
+          progress: [],
+        },
+      ]
 
-      //   const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com']
-
-      if (emailsAndProgress.email.length > 0) {
-        // await emailService.sendStreakMissedUsersEmails(emails)
-        console.log(`emails are ${emailsAndProgress}`)
+      if (emails.length > 0) {
+        await emailService.sendUsersProgressAndEmails(emails)
         console.log(`Successfully sent emails for page ${pageIndex}`)
       } else {
         console.log(`No emails found for page ${pageIndex}`)

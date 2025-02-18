@@ -2,7 +2,7 @@ import express from 'express'
 import cron from 'node-cron'
 import nonSubscribersCronUtil from './utils/nonSubscribersCron.util.js'
 import streakMissCronUtil from './utils/streakMissCron.util.js'
-import usersProgressCronUtil from './utils/usersProgress.util.js'
+import usersProgressCronUtil from './utils/usersProgressCron.util.js'
 
 const app = express()
 

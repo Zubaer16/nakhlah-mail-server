@@ -22,6 +22,12 @@ const config = {
     streakMissMailTemplateApi: {
       url: process.env.STREAK_MISS_MAIL_TEMPLATE_API_URL,
     },
+    usersWithProgressApi: {
+      url: process.env.USERS_PROGRESS_MAIL_TEMPLATE_WITH_PROGRESS_API_URL,
+    },
+    usersWithoutProgressApi: {
+      url: process.env.USERS_PROGRESS_MAIL_TEMPLATE_WITHOUT_PROGRESS_API_URL,
+    },
   },
 }
 
