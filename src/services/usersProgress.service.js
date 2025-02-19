@@ -14,7 +14,7 @@ apiKeyInstance.apiKey = config.emailServiceSecret
 
 const sendUsersProgressAndEmails = async (usersProgressAndEmails) => {
   if (usersProgressAndEmails.length === 0) {
-    console.log('No emails to send.')
+    console.log('No users progress emails to send.')
     return
   }
   const usersWithProgress = usersProgressAndEmails.filter(
@@ -51,6 +51,7 @@ const sendUsersProgressAndEmails = async (usersProgressAndEmails) => {
 
   try {
     await transactionalEmailsApi.sendTransacEmail(sendSmtpEmail)
+    console.log(`Non-progress email sent successfully to ${usersWithoutProgress}`,)
     // Send emails to users with progress
     if (usersWithProgressEmails.length > 0) {
       for (let user of usersWithProgressEmails) {
@@ -66,12 +67,12 @@ const sendUsersProgressAndEmails = async (usersProgressAndEmails) => {
             sendSmtpEmailWithProgress
           )
           console.log(
-            `Email sent successfully to ${user.email} with progress:`,
-            user
+            `Progress emails sent successfully to ${user.email}`,
+            
           )
         } catch (error) {
           console.error(
-            `Error sending email to ${user.email}:`,
+            `Error sending progress email to ${user.email}:`,
             error.response?.data || error.message
           )
         }
@@ -79,7 +80,7 @@ const sendUsersProgressAndEmails = async (usersProgressAndEmails) => {
     }
   } catch (error) {
     console.error(
-      'Error sending emails:',
+      'Error sending progress and non progress emails:',
       error.response?.data || error.message
     )
   }

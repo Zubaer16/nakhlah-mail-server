@@ -16,7 +16,7 @@ const fetchUsersProgressAndEmails = async (pageSize, pageIndex) => {
     return data.data // return non-subscriber data from the page
   } catch (error) {
     console.error(
-      'Error fetching subscriptions:',
+      'Error fetching users progress:',
       error.response?.data || error.message
     )
     throw error
@@ -91,6 +91,26 @@ const processUsersProgressAndEmails = async (pageSize) => {
           email: 'zubaer.16@gmail.com',
           progress: [],
         },
+        {
+          email: 'badhon.alam303@gmail.com',
+          progress: [
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 01',
+              lesson: 'Lesson 02',
+            },
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 02',
+              lesson: 'Lesson 01',
+            },
+            {
+              unit: 'Meet and Greet',
+              level: 'Task 02',
+              lesson: 'Lesson 02',
+            },
+          ],
+        }
       ]
 
       if (emails.length > 0) {
@@ -101,7 +121,7 @@ const processUsersProgressAndEmails = async (pageSize) => {
       }
     }
   } catch (error) {
-    console.error('Error processing subscriptions:', error.message)
+    console.error('Error processing users progress:', error.message)
   }
 }
 

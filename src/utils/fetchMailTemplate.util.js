@@ -35,10 +35,10 @@ const fetchStreakMissMailTemplate = async () => {
       subject: data.data.attributes.subject,
       body: data.data.attributes.body,
     }
-    return template // return non-subscriber data from the page
+    return template 
   } catch (error) {
     console.error(
-      'Error fetching subscription offer:',
+      'Error fetching missed streaks:',
       error.response?.data || error.message
     )
     throw error
@@ -48,7 +48,7 @@ const fetchStreakMissMailTemplate = async () => {
 const fetchUsersWithProgress = async () => {
   try {
     const { data } = await axios.get(
-      config.mailTemplateApi.usersWithProgressApi.url,
+      config.mailTemplateApi.usersWithProgressMailTemplateApi.url,
       {
         headers: { Authorization: `Bearer ${config.token}` },
       }
@@ -57,10 +57,10 @@ const fetchUsersWithProgress = async () => {
       subject: data.data.attributes.subject,
       body: data.data.attributes.body,
     }
-    return template // return non-subscriber data from the page
+    return template 
   } catch (error) {
     console.error(
-      'Error fetching subscription offer:',
+      'Error fetching users with progress:',
       error.response?.data || error.message
     )
     throw error
@@ -70,7 +70,7 @@ const fetchUsersWithProgress = async () => {
 const fetchUsersWithoutProgress = async () => {
   try {
     const { data } = await axios.get(
-      config.mailTemplateApi.usersWithoutProgressApi.url,
+      config.mailTemplateApi.usersWithoutProgressMailTemplateApi.url,
       {
         headers: { Authorization: `Bearer ${config.token}` },
       }
@@ -79,10 +79,32 @@ const fetchUsersWithoutProgress = async () => {
       subject: data.data.attributes.subject,
       body: data.data.attributes.body,
     }
-    return template // return non-subscriber data from the page
+    return template 
   } catch (error) {
     console.error(
-      'Error fetching subscription offer:',
+      'Error fetching users without progress:',
+      error.response?.data || error.message
+    )
+    throw error
+  }
+}
+
+const fetchUsersSubscriptionDaysLeft = async () => {
+  try {
+    const { data } = await axios.get(
+      config.mailTemplateApi.usersSubscriptionDaysLeftMailTemplateApi.url,
+      {
+        headers: { Authorization: `Bearer ${config.token}` },
+      }
+    )
+    const template = {
+      subject: data.data.attributes.subject,
+      body: data.data.attributes.body,
+    }
+    return template 
+  } catch (error) {
+    console.error(
+      'Error fetching subscription days left:',
       error.response?.data || error.message
     )
     throw error
@@ -93,4 +115,5 @@ export {
   fetchStreakMissMailTemplate,
   fetchUsersWithProgress,
   fetchUsersWithoutProgress,
+  fetchUsersSubscriptionDaysLeft,
 }

@@ -1,11 +1,11 @@
 import axios from 'axios'
 import config from '../config/config.js'
-import emailService from '../services/streakMiss.service.js'
+import emailService from '../services/subscriptionDaysLeft.service.js'
 
-const fetchStreakMissedUsersEmails = async (pageSize, pageIndex) => {
+const fetchUsersSubscriptionDaysLeftEmails = async (pageSize, pageIndex) => {
   try {
     console.log(`Fetching data for page ${pageIndex} with size ${pageSize}`)
-    const { data } = await axios.get(config.streakMissedUsersListApi.url, {
+    const { data } = await axios.get(config.usersSubscriptionDaysLeftListApi.url, {
       params: {
         'pagination[pageSize]': pageSize, // Using pagination[pageSize]
         'pagination[page]': pageIndex, // API pagination parameter for page size
@@ -16,7 +16,7 @@ const fetchStreakMissedUsersEmails = async (pageSize, pageIndex) => {
     return data.data // return non-subscriber data from the page
   } catch (error) {
     console.error(
-      'Error fetching streak missed users:',
+      'Error fetching days left users:',
       error.response?.data || error.message
     )
     throw error
@@ -25,7 +25,7 @@ const fetchStreakMissedUsersEmails = async (pageSize, pageIndex) => {
 
 const getPageCount = async (pageSize) => {
   try {
-    const { data } = await axios.get(config.streakMissedUsersListApi.url, {
+    const { data } = await axios.get(config.usersSubscriptionDaysLeftListApi.url, {
       params: {
         'pagination[pageSize]': pageSize, // Using pagination[pageSize]
         'pagination[page]': 1, // Use the same page size
@@ -45,30 +45,41 @@ const getPageCount = async (pageSize) => {
   }
 }
 // const fetchNon
-
-const processStreakMissedUsersEmails = async (pageSize) => {
+const processUsersSubscriptionDaysLeftEmails = async (pageSize) => {
   try {
     // Get the total number of pages dynamically from the API
-    // const pageCount = await getPageCount(pageSize)
-    const pageCount = 1
+    const pageCount = await getPageCount(pageSize)
+    // const pageCount = 1
 
     // Loop through each page and send emails
     for (let pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
       console.log(`Processing page ${pageIndex} of ${pageCount}...`)
-      // const emails = await fetchStreakMissedUsersEmails(pageSize, pageIndex)
-      const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com','badhon.alam303@gmail.com']
+    //   const emails = await fetchUsersSubscriptionDaysLeftEmails(pageSize, pageIndex)
+      const emails = [
+        {
+          email: 'zubaer.ahmed7690@gmail.com',
+          daysLeft: 7
+        },
+        {
+          email: 'zubaer.16@gmail.com',
+          daysLeft: 2
+        }
+        ,{
+            email: 'badhon.alam303@gmail.com',
+            daysLeft: 3
+        }
+      ]
 
       if (emails.length > 0) {
-        await emailService.sendStreakMissedUsersEmails(emails)
-        console.log(`emails are ${emails}`)
+        await emailService.sendUsersSubscriptionDaysLeft(emails)
         console.log(`Successfully sent emails for page ${pageIndex}`)
       } else {
         console.log(`No emails found for page ${pageIndex}`)
       }
     }
   } catch (error) {
-    console.error('Error processing streak missed users:', error.message)
+    console.error('Error processing days left:', error.message)
   }
 }
 
-export default { processStreakMissedUsersEmails }
+export default { processUsersSubscriptionDaysLeftEmails }

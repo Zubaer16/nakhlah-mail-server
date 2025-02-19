@@ -15,6 +15,9 @@ const config = {
   usersProgressListApi: {
     url: process.env.USERS_PROGRESS_LIST_API_URL,
   },
+  usersSubscriptionDaysLeftListApi: {
+    url: process.env.USERS_SUBSCRIPTION_DAYS_LEFT_LIST_API_URL,
+  },
   mailTemplateApi: {
     subscriptionOfferMailTemplateApi: {
       url: process.env.SUBSCRIPTION_OFFER_MAIL_TEMPLATE_API_URL,
@@ -22,11 +25,14 @@ const config = {
     streakMissMailTemplateApi: {
       url: process.env.STREAK_MISS_MAIL_TEMPLATE_API_URL,
     },
-    usersWithProgressApi: {
+    usersWithProgressMailTemplateApi: {
       url: process.env.USERS_PROGRESS_MAIL_TEMPLATE_WITH_PROGRESS_API_URL,
     },
-    usersWithoutProgressApi: {
+    usersWithoutProgressMailTemplateApi: {
       url: process.env.USERS_PROGRESS_MAIL_TEMPLATE_WITHOUT_PROGRESS_API_URL,
+    },
+    usersSubscriptionDaysLeftMailTemplateApi: {
+      url: process.env.USERS_SUBSCRIPTION_DAYS_LEFT_MAIL_TEMPLATE_API_URL,
     },
   },
 }

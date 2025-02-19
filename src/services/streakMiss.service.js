@@ -10,7 +10,7 @@ apiKeyInstance.apiKey = config.emailServiceSecret
 
 const sendStreakMissedUsersEmails = async (streakMissedUsersEmails) => {
   if (streakMissedUsersEmails.length === 0) {
-    console.log('No emails to send.')
+    console.log('No streak miss emails to send.')
     return
   }
 
@@ -26,10 +26,10 @@ const sendStreakMissedUsersEmails = async (streakMissedUsersEmails) => {
 
   try {
     await transactionalEmailsApi.sendTransacEmail(sendSmtpEmail)
-    console.log('Emails sent successfully to:', streakMissedUsersEmails)
+    console.log('streak miss emails sent successfully to:', streakMissedUsersEmails)
   } catch (error) {
     console.error(
-      'Error sending emails:',
+      'Error sending streak miss emails:',
       error.response?.data || error.message
     )
   }

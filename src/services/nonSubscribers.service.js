@@ -10,7 +10,7 @@ apiKeyInstance.apiKey = config.emailServiceSecret
 
 const sendNonSubscriberEmails = async (nonSubscriberEmails) => {
   if (nonSubscriberEmails.length === 0) {
-    console.log('No emails to send.')
+    console.log('No nonsubscribers emails to send.')
     return
   }
 
@@ -26,10 +26,10 @@ const sendNonSubscriberEmails = async (nonSubscriberEmails) => {
 
   try {
     await transactionalEmailsApi.sendTransacEmail(sendSmtpEmail)
-    console.log('Emails sent successfully to:', nonSubscriberEmails)
+    console.log('Nonsubscribers emails sent successfully to:', nonSubscriberEmails)
   } catch (error) {
     console.error(
-      'Error sending emails:',
+      'Error sending nonsubscribers emails:',
       error.response?.data || error.message
     )
   }

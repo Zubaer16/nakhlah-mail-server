@@ -3,15 +3,17 @@ import cron from 'node-cron'
 import nonSubscribersCronUtil from './utils/nonSubscribersCron.util.js'
 import streakMissCronUtil from './utils/streakMissCron.util.js'
 import usersProgressCronUtil from './utils/usersProgressCron.util.js'
+import subscriptionDaysLeftCronUtil from './utils/subscriptionDaysLeftCron.util.js'
 
 const app = express()
 
 cron.schedule('*/1 * * * *', async () => {
   const pageSize = 500 // Number of emails to fetch per page
   console.log('Cron job started: Sending bulk emails...')
-  // await nonSubscribersCronUtil.processNonSubscriberEmails(pageSize)
-  // await streakMissCronUtil.processStreakMissedUsersEmails(pageSize)
+  await nonSubscribersCronUtil.processNonSubscriberEmails(pageSize)
+  await streakMissCronUtil.processStreakMissedUsersEmails(pageSize)
   await usersProgressCronUtil.processUsersProgressAndEmails(pageSize)
+  await subscriptionDaysLeftCronUtil.processUsersSubscriptionDaysLeftEmails(pageSize)
   console.log('Cron job completed')
 })
 
