@@ -5,13 +5,16 @@ import emailService from '../services/subscriptionDaysLeft.service.js'
 const fetchUsersSubscriptionDaysLeftEmails = async (pageSize, pageIndex) => {
   try {
     console.log(`Fetching data for page ${pageIndex} with size ${pageSize}`)
-    const { data } = await axios.get(config.usersSubscriptionDaysLeftListApi.url, {
-      params: {
-        'pagination[pageSize]': pageSize, // Using pagination[pageSize]
-        'pagination[page]': pageIndex, // API pagination parameter for page size
-      },
-      headers: { Authorization: `Bearer ${config.token}` },
-    })
+    const { data } = await axios.get(
+      config.usersSubscriptionDaysLeftListApi.url,
+      {
+        params: {
+          'pagination[pageSize]': pageSize, // Using pagination[pageSize]
+          'pagination[page]': pageIndex, // API pagination parameter for page size
+        },
+        headers: { Authorization: `Bearer ${config.token}` },
+      }
+    )
 
     return data.data // return non-subscriber data from the page
   } catch (error) {
@@ -25,13 +28,16 @@ const fetchUsersSubscriptionDaysLeftEmails = async (pageSize, pageIndex) => {
 
 const getPageCount = async (pageSize) => {
   try {
-    const { data } = await axios.get(config.usersSubscriptionDaysLeftListApi.url, {
-      params: {
-        'pagination[pageSize]': pageSize, // Using pagination[pageSize]
-        'pagination[page]': 1, // Use the same page size
-      },
-      headers: { Authorization: `Bearer ${config.token}` },
-    })
+    const { data } = await axios.get(
+      config.usersSubscriptionDaysLeftListApi.url,
+      {
+        params: {
+          'pagination[pageSize]': pageSize, // Using pagination[pageSize]
+          'pagination[page]': 1, // Use the same page size
+        },
+        headers: { Authorization: `Bearer ${config.token}` },
+      }
+    )
 
     const totalPages = data.meta.pagination.pageCount // Calculate total pages
     console.log(`Total pages to fetch: ${totalPages}`)
@@ -48,26 +54,22 @@ const getPageCount = async (pageSize) => {
 const processUsersSubscriptionDaysLeftEmails = async (pageSize) => {
   try {
     // Get the total number of pages dynamically from the API
-    const pageCount = await getPageCount(pageSize)
-    // const pageCount = 1
+    // const pageCount = await getPageCount(pageSize)
+    const pageCount = 1
 
     // Loop through each page and send emails
     for (let pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
       console.log(`Processing page ${pageIndex} of ${pageCount}...`)
-    //   const emails = await fetchUsersSubscriptionDaysLeftEmails(pageSize, pageIndex)
+      //   const emails = await fetchUsersSubscriptionDaysLeftEmails(pageSize, pageIndex)
       const emails = [
         {
           email: 'zubaer.ahmed7690@gmail.com',
-          daysLeft: 7
+          daysLeft: 7,
         },
         {
           email: 'zubaer.16@gmail.com',
-          daysLeft: 2
-        }
-        ,{
-            email: 'badhon.alam303@gmail.com',
-            daysLeft: 3
-        }
+          daysLeft: 2,
+        },
       ]
 
       if (emails.length > 0) {

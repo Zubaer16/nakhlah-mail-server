@@ -56,7 +56,7 @@ const processStreakMissedUsersEmails = async (pageSize) => {
     for (let pageIndex = 1; pageIndex <= pageCount; pageIndex++) {
       console.log(`Processing page ${pageIndex} of ${pageCount}...`)
       // const emails = await fetchStreakMissedUsersEmails(pageSize, pageIndex)
-      const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com','badhon.alam303@gmail.com']
+      const emails = ['zubaer.ahmed7690@gmail.com', 'zubaer.16@gmail.com']
 
       if (emails.length > 0) {
         await emailService.sendStreakMissedUsersEmails(emails)

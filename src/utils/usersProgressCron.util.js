@@ -91,26 +91,6 @@ const processUsersProgressAndEmails = async (pageSize) => {
           email: 'zubaer.16@gmail.com',
           progress: [],
         },
-        {
-          email: 'badhon.alam303@gmail.com',
-          progress: [
-            {
-              unit: 'Meet and Greet',
-              level: 'Task 01',
-              lesson: 'Lesson 02',
-            },
-            {
-              unit: 'Meet and Greet',
-              level: 'Task 02',
-              lesson: 'Lesson 01',
-            },
-            {
-              unit: 'Meet and Greet',
-              level: 'Task 02',
-              lesson: 'Lesson 02',
-            },
-          ],
-        }
       ]
 
       if (emails.length > 0) {
